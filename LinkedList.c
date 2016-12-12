@@ -4,7 +4,6 @@
 	
 	This is a simple design of a linked list. I chose this design
 	instead of the ductape method.
-
 */
 
 #include <stdio.h>
@@ -50,7 +49,7 @@ int FreeAllNodes(struct _node * root)
 	{
 		root = root->next;
 		free(killnode);				// figure out why this is giving problem
-		killnode = root;
+		killnode = root;			// found out, can't free something not malloc, like root
 	}
 	free(root);
 	return 0;
@@ -73,16 +72,18 @@ int PrintList(struct _node * root)
 
 int debug()
 {
-	struct _node root;
-	root.x = 20;
-	AddNode( &root, NewNode( 75 ) );
-	PrintList( &root );
-	AddNode( &root, NewNode( 34 ) );
-	PrintList( &root );
-	AddNode( &root, NewNode( 66 ) );
-	PrintList( &root );
+	struct _node * root;
+	//root.x = 20;
+	root = NewNode(20);
+	AddNode( root, NewNode( 75 ) );
+	PrintList( root );
+	AddNode( root, NewNode( 34 ) );
+	PrintList( root );
+	AddNode( root, NewNode( 66 ) );
+	PrintList( root );
 
-	FreeAllNodes( &root );
+	FreeAllNodes( root );
+	PrintList( root );
 	return 0;
 }
 
